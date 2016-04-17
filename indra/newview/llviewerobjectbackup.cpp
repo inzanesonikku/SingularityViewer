@@ -440,6 +440,8 @@ bool LLObjectBackup::validatePerms(const LLPermissions* item_permissions)
 //static
 bool LLObjectBackup::validateTexturePerms(const LLUUID& asset_id)
 {
+	return true;
+	/*
 	if (LFSimFeatureHandler::instance().exportPolicy() == ep_full_perm)
 	{
 		// If we are not in Second Life and we don't have export-permission
@@ -478,6 +480,7 @@ bool LLObjectBackup::validateTexturePerms(const LLUUID& asset_id)
 	}
 
 	return false;
+	*/
 }
 
 LLUUID LLObjectBackup::validateTextureID(const LLUUID& asset_id)
@@ -485,7 +488,7 @@ LLUUID LLObjectBackup::validateTextureID(const LLUUID& asset_id)
 	if (mBadPermsTexturesList.count(asset_id))
 	{
 		// We already checked it and know it's bad...
-		return LL_TEXTURE_PLYWOOD;
+		return asset_id;
 	}
 	else if (asset_id.isNull() || validateTexturePerms(asset_id))
 	{
@@ -497,7 +500,7 @@ LLUUID LLObjectBackup::validateTextureID(const LLUUID& asset_id)
 		mNonExportedTextures |= TEXTURE_BAD_PERM;
 		LL_WARNS() << "Bad permissions for texture ID: " << asset_id
 				<< " - Texture will not be exported." << LL_ENDL;
-		return LL_TEXTURE_PLYWOOD;
+		return asset_id;
 	}
 }
 
@@ -576,7 +579,7 @@ void LLObjectBackup::exportWorker(void *userdata)
 			object = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
 			if (object)
 			{
-				if (LLSelectMgr::getInstance()->getSelection()->applyToNodes(&func, false))
+				if (true) // (LLSelectMgr::getInstance()->getSelection()->applyToNodes(&func, false))
 				{
 					self->mExportState = EXPORT_FETCH_PHYSICS;
 				}
@@ -907,7 +910,7 @@ LLSD LLObjectBackup::primsToLLSD(LLViewerObject::child_list_t child_list,
 			if ((sculpt->getSculptType() & LL_SCULPT_TYPE_MASK) != LL_SCULPT_TYPE_MESH)
 			{
 				LLUUID sculpt_texture = sculpt->getSculptTexture();
-				if (sculpt_texture == validateTextureID(sculpt_texture))
+				if (true) // (sculpt_texture == validateTextureID(sculpt_texture))
 				{
 					if (mTexturesList.count(sculpt_texture) == 0)
 					{

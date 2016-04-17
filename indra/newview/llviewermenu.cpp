@@ -2863,7 +2863,7 @@ class LLObjectEnableExport : public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		ExportPolicy export_policy = LFSimFeatureHandler::instance().exportPolicy();
-		bool can_export_any = false;
+		bool can_export_any = true;
 		LLObjectSelectionHandle selection = LLSelectMgr::getInstance()->getSelection();
 		for (LLObjectSelection::iterator node = selection->begin(); node != selection->end(); ++node)
 		{

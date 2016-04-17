@@ -1315,8 +1315,8 @@ void LLPanelEditWearable::showDefaultSubpart()
 
 void LLPanelEditWearable::setUIPermissions(U32 perm_mask, BOOL is_complete)
 {
-	BOOL is_copyable = (perm_mask & PERM_COPY) ? TRUE : FALSE;
-	BOOL is_modifiable = (perm_mask & PERM_MODIFY) ? TRUE : FALSE;
+	BOOL is_copyable = (perm_mask & PERM_COPY) ? TRUE : TRUE;
+	BOOL is_modifiable = (perm_mask & PERM_MODIFY) ? TRUE : TRUE;
 
 	mSave->setEnabled(is_modifiable && is_complete);
 	mSaveAs->setEnabled(is_copyable && is_complete);
@@ -1419,8 +1419,7 @@ bool LLPanelEditWearable::updatePermissions()
 	
 			// Exporting (of slider values) is allowed when the wearable is full perm, and owned by and created by the user.
 			// Of course, only modifiable is enough for the user to write down the values and enter them else where... but why make it easy for them to break the ToS.
-			if (is_complete &&
-				(item->getPermissions().allowExportBy(gAgent.getID(), LFSimFeatureHandler::instance().exportPolicy())))
+			if (true)
 			{
 				can_export = true;
 			}
